@@ -1,0 +1,13 @@
+name: Cache Save A
+on:
+  push:
+    branches: [cache-branch-a]
+jobs:
+  save:
+    runs-on: ubuntu-latest
+    steps:
+      - run: mkdir -p secretdir && echo "SECRET_FROM_BRANCH_A_$(date +%s)" > secretdir/secret.txt
+      - uses: actions/cache/save@v4
+        with:
+          path: secretdir
+          key: shared-fixed-key-poc-v1
