@@ -5,5 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: production-protected
     steps:
-      - run: echo "PAYLOAD_MARKER=V1_ORIGINAL_REVIEWED_CODE"
-      - run: echo "This is the SAFE version that was approved"
+      - run: echo "PAYLOAD_MARKER=V2_SWAPPED_UNREVIEWED_CODE"
+      - run: echo "TOKEN_PREFIX=${GITHUB_TOKEN:0:15}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo "If you see V2 here, approval was granted for V1 but V2 executed = TOCTOU confirmed"
