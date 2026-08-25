@@ -1,0 +1,10 @@
+name: Branch Policy Test
+on:
+  push:
+    branches: [cache-branch-a]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production-protected
+    steps:
+      - run: echo "DEPLOYED_FROM_UNPROTECTED_BRANCH_$(date +%s)"
