@@ -1,0 +1,9 @@
+name: Deploy Test
+on: [push]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production-protected
+    steps:
+      - run: echo "PAYLOAD_MARKER=V1_ORIGINAL_REVIEWED_CODE"
+      - run: echo "This is the SAFE version that was approved"
