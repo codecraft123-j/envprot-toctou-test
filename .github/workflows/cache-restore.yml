@@ -1,0 +1,21 @@
+name: Cache Restore B
+on:
+  push:
+    branches: [cache-branch-b]
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache/restore@v4
+        id: cacherestore
+        with:
+          path: secretdir
+          key: shared-fixed-key-poc-v1
+      - run: |
+          echo "cache-hit=${{ steps.cacherestore.outputs.cache-hit }}"
+          if [ -f secretdir/secret.txt ]; then
+            echo "LEAKED_CONTENT:"
+            cat secretdir/secret.txt
+          else
+            echo "NO_FILE_FOUND - cache correctly isolated"
+          fi
